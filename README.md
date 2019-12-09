@@ -11,7 +11,37 @@ A script to simulate explosion particles.
 
 ## Usage
 
-Instance `fake_explosion_particles` and attach `fake_explosion_particles.gd` as a script.
+Instance `fake_explosion_particles.tscn` and attach `fake_explosion_particles.gd` as a script.
+
+You can of course use GDScript as well.
+
+```
+# Creata a new node.
+var fake_explosion = Node2D.new()
+fake_explosion.name = "fake_explosion"
+
+# Attach the script.
+fake_explosion.set_script(preload("res://path/to/fake_explosion_particles.gd"))
+
+# Set 'fake_explosion' variables.
+fake_explosion.min_particles_number = 5
+fake_explosion.max_particles_number = 10
+fake_explosion.min_particles_gravity = 20
+fake_explosion.max_particles_gravity = 60
+fake_explosion.min_particles_velocity = 20
+fake_explosion.max_particles_velocity = 60
+fake_explosion.min_particles_size = 1
+fake_explosion.max_particles_size = 2
+
+# Set its position
+fake_explosion.position = Vector2(0, 0)
+
+# This is useful if you want the explosion to be more visible.
+fake_explosion.z_index = 1
+
+# Add it to the scene.
+get_parent().add_child(fake_explosion, true)
+```
 
 ## Parameters
 
