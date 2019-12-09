@@ -41,6 +41,12 @@ fake_explosion.z_index = 1
 
 # Add it to the scene.
 get_parent().add_child(fake_explosion, true)
+
+# And then you can explode it whenever you want.
+fake_explosion.explode_particles = true
+
+# You can use the name of the group to find all the fake particles nodes more easily.
+get_tree().get_nodes_in_group("fake_explosion_particles")
 ```
 
 ## Parameters
