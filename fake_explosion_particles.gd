@@ -3,11 +3,11 @@ extends Node2D
 export (int) var min_particles_number = 200
 export (int) var max_particles_number = 400
 
-export (float) var min_particles_gravity = 200
-export (float) var max_particles_gravity = 600
+export (float) var min_particles_gravity = 200.0
+export (float) var max_particles_gravity = 600.0
 
-export (float) var min_particles_velocity = 200
-export (float) var max_particles_velocity = 600
+export (float) var min_particles_velocity = 200.0
+export (float) var max_particles_velocity = 600.0
 
 export (int) var max_particles_position_x = ProjectSettings.get_setting("display/window/size/width")
 export (int) var max_particles_position_y = ProjectSettings.get_setting("display/window/size/height")
