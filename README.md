@@ -49,6 +49,22 @@ fake_explosion.explode_particles = true
 get_tree().get_nodes_in_group("fake_explosion_particles")
 ```
 
+You can change the colors of the particles, but you have to change them inside the script. They are set in `particles_colors_with_weights`.
+
+The colors of the particles are chosen randomly depending on *weights*. If you want a color to have more probabilities to be chosen, give it a greater *weight*.
+
+These are the defaults:
+
+```
+var particles_colors_with_weights = [
+	[4, Color("#ffffff")],
+	[2, Color("#000000")],
+	[8, Color("#ff004d")],
+	[8, Color("#ffa300")],
+	[10, Color("#ffec27")]
+]
+```
+
 ## Parameters
 
 ![Godot-3-2D-Fake-Explosion-Particles-Parameters](examples/parameters.png)
@@ -150,3 +166,21 @@ If set to `true`, the particles will explode.
 | Name | Type | Description | Default |
 | --- | --- | --- | --- |
 | `group_name` | `String` | Set the name of the group. | `fake_explosion_particles` |
+
+## Changelog
+
+See [CHANGELOG](CHANGELOG.md).
+
+## Authors
+
+* Me 😛 [hiulit](https://github.com/hiulit).
+
+## Credits
+
+Thanks to:
+
+* [CowThing](https://github.com/CowThing) - For the `_rand_array` function.
+
+## License
+
+[MIT License](LICENSE).
