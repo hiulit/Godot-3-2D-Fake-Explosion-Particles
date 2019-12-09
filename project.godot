@@ -1,0 +1,33 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[  ]
+_global_script_class_icons={
+
+}
+
+[application]
+
+config/name="Godot-3-2D-Fake-Explosion-Particles"
+run/main_scene="res://test.tscn"
+
+[display]
+
+window/size/width=320
+window/size/height=180
+window/size/test_width=640
+window/size/test_height=360
+window/stretch/mode="2d"
+window/stretch/aspect="keep"
+
+[rendering]
+
+quality/2d/use_pixel_snap=true
+environment/default_environment="res://default_env.tres"
