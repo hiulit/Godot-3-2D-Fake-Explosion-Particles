@@ -1,6 +1,6 @@
 # Godot 3 2D Fake Explosion Particles
 
-A script to simulate explosion particles.
+A script to simulate exploding particles.
 
 ![Godot-3-2D-Fake-Explosion-Particles-GIF](examples/Godot-3-2D-Fake-Explosion-Particles.gif)
 
