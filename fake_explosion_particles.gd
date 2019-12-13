@@ -91,12 +91,9 @@ func _particles_explode(delta):
 			# Fade out the particles.
 			if particle.color.a > 0:
 				particle.color.a -= particle.alpha * delta
-	
-				if particle.color.a < 0:
-					particle.color.a = 0
 
 		# If the particle is invisible...
-		if particle.color.a == 0:
+		if particle.color.a <= 0:
 			# ... if there are particles in the particles array...
 			if particles.size() > 0:
 				# ... find the particle in the particles array...
