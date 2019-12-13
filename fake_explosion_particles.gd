@@ -85,9 +85,9 @@ func _particles_explode(delta):
 		particle.velocity.y *= particle.velocity_increment.y
 		particle.position += (particle.velocity + particle.gravity) * delta
 
-		particle.time += delta
+		particle.time_alive += delta
 
-		if particle.time > _get_random_time():
+		if particle.time_alive > _get_random_lifespan():
 			# Fade out the particles.
 			if particle.color.a > 0:
 				particle.color.a -= particle.alpha * delta
@@ -124,7 +124,7 @@ func _create_particles():
 			gravity = null,
 			position = particles_initial_position,
 			size = null,
-			time = 0,
+			time_alive = 0,
 			velocity = null
 		}
 
@@ -201,7 +201,7 @@ func _get_random_velocity_increment():
 	return random_velocity_increment
 
 
-func _get_random_time():
+func _get_random_lifespan():
 	var random_time = rand_range(0.05, 0.1)
 	return random_time
 
