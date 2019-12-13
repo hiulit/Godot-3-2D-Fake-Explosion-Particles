@@ -96,10 +96,8 @@ func _particles_explode(delta):
 		if particle.color.a <= 0:
 			# ... if there are particles in the particles array...
 			if particles.size() > 0:
-				# ... find the particle in the particles array...
-				var i = particles.find(particle)
-				# ... and remove it from the particles array.
-				particles.remove(i)
+				# ... remove the particle from the particles array.
+				particles.erase(particle)
 
 
 func _create_particles():
