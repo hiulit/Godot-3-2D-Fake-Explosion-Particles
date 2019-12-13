@@ -20,6 +20,7 @@ export (bool) var start_timer = false
 export (float) var timer_wait_time = 1.0
 export (bool) var particles_explode = false
 export (String) var group_name = "fake_explosion_particles"
+export (bool) var randomize_seed = false
 
 var particles = []
 var particles_number
@@ -36,6 +37,9 @@ var particles_colors_with_weights = [
 var particles_timer
 
 func _ready():
+	# Randomize the seed.
+	if randomize_seed: randomize()
+
 	# Add to a group so it can be found from anywhere.
 	add_to_group(group_name)
 
@@ -137,19 +141,16 @@ func _create_particles():
 
 
 func _get_random_alpha():
-	randomize()
 	var random_alpha = rand_range(2, 10)
 	return random_alpha
 
 
 func _get_random_color():
-	randomize()
 	var random_color = _rand_array(particles_colors_with_weights)
 	return random_color
 
 
 func _get_random_gravity():
-	randomize()
 	var random_gravity = Vector2(
 							rand_range(
 								-rand_range(min_particles_gravity, max_particles_gravity),
@@ -164,13 +165,11 @@ func _get_random_gravity():
 
 
 func _get_random_number():
-	randomize()
 	var random_number = round(rand_range(min_particles_number, max_particles_number))
 	return random_number
 
 
 func _get_random_position():
-	randomize()
 	var random_position_x = rand_range(0, max_particles_position_x)
 	var random_position_y = rand_range(0, max_particles_position_y)
 	var random_position = Vector2(random_position_x, random_position_y)
@@ -178,14 +177,12 @@ func _get_random_position():
 
 
 func _get_random_size():
-	randomize()
 	var random_size = randi() % max_particles_size + min_particles_size
 	random_size = Vector2(random_size, random_size)
 	return random_size
 
 
 func _get_random_velocity():
-	randomize()
 	var random_velocity = Vector2(
 							rand_range(
 								-rand_range(min_particles_velocity, max_particles_velocity),
@@ -200,13 +197,11 @@ func _get_random_velocity():
 
 
 func _get_random_velocity_increment():
-	randomize()
 	var random_velocity_increment = Vector2(rand_range(0.991, 1.009), rand_range(0.991, 1.009))
 	return random_velocity_increment
 
 
 func _get_random_time():
-	randomize()
 	var random_time = rand_range(0.05, 0.1)
 	return random_time
 
