@@ -111,7 +111,7 @@ func _create_particles():
 
 	# Set initial values.
 	particles_initial_position = _get_random_position() if get_random_position else Vector2.ZERO
-	particles_number = _get_random_number()
+	particles_number = _get_random_number(min_particles_number, max_particles_number)
 
 	# Empty the particles array.
 	particles.clear()
@@ -164,8 +164,8 @@ func _get_random_gravity():
 	return random_gravity
 
 
-func _get_random_number():
-	var random_number = round(rand_range(min_particles_number, max_particles_number))
+func _get_random_number(min_number, max_number):
+	var random_number = int(round(rand_range(min_particles_number, max_particles_number)))
 	return random_number
 
 
