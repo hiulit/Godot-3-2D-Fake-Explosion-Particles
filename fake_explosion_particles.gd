@@ -201,7 +201,7 @@ func _get_random_velocity_increment():
 
 
 func _get_random_lifespan():
-	var random_time = rand_range(0.05, 0.1)
+	var random_time = rand_range(min_particles_lifespan, max_particles_lifespan)
 	return random_time
 
 
