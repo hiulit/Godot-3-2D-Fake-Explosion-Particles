@@ -18,6 +18,9 @@ export (int) var max_particles_size = 3
 export (float) var min_particles_lifespan = 0.05
 export (float) var max_particles_lifespan = 0.1
 
+export (float) var min_particles_fade_factor = 2.0
+export (float) var max_particles_fade_factor = 10.0
+
 export (bool) var get_random_position = false
 export (bool) var start_timer = false
 export (float) var timer_wait_time = 1.0
@@ -90,11 +93,10 @@ func _particles_explode(delta):
 
 		particle.time_alive += delta
 
-		if particle.time_alive > _get_random_lifespan():
 		if particle.time_alive > particle.lifespan:
 			# Fade out the particles.
 			if particle.color.a > 0:
-				particle.color.a -= particle.alpha * delta
+				particle.color.a -= particle.fade_factor * delta
 
 		# If the particle is invisible...
 		if particle.color.a <= 0:
@@ -119,15 +121,17 @@ func _create_particles():
 		# Create the particle object.
 		var particle = {
 			color = null,
+			fade_factor = null,
 			gravity = null,
 			lifespan = null, # This is how long the particle should live for.
 			position = particles_initial_position,
 			size = null,
-			time_alive = 0,
+			time_alive = 0, # This tracks how long the particle has been alive.
 			velocity = null
 		}
 
 		# Assign random variables to the particle object.
+		particle.fade_factor = _get_random_fade_factor()
 		particle.color = _get_random_color()
 		particle.gravity = _get_random_gravity()
 		particle.lifespan = _get_random_lifespan()
@@ -139,9 +143,9 @@ func _create_particles():
 		particles.push_back(particle)
 
 
-func _get_random_fade_time():
-	var random_fade_time = rand_range(min_particles_fade_factor, max_particles_fade_factor)
-	return random_fade_time
+func _get_random_fade_factor():
+	var random_fade_factor = rand_range(min_particles_fade_factor, max_particles_fade_factor)
+	return random_fade_factor
 
 
 func _get_random_color():
