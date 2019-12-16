@@ -59,7 +59,6 @@ func _ready():
 	particles_timer.wait_time = timer_wait_time
 	particles_timer.set_timer_process_mode(1)
 	particles_timer.connect("timeout", self, "_on_particles_timer_timeout")
-
 	add_child(particles_timer, true)
 
 	if start_timer: particles_timer.start()
@@ -70,32 +69,38 @@ func _process(delta):
 	# 'particles_explode' is 'true', make them explode.
 	if particles.size() > 0 and particles_explode == true:
 
+		# Explode the particles.
 		_particles_explode(delta)
 
 		# Redraw the particles every frame.
 		update()
 
-	# If there are no particles in the particles array, free the node.
+	# If there are no particles in the particles array
+	# and the timer is not set, free the node.
 	if particles.size() == 0 and not start_timer:
 		queue_free()
 
 
 func _draw():
 	for particle in particles:
-		# Draw the particles.
+		# Draw each particle.
 		draw_rect(Rect2(particle.position, particle.size), particle.color)
 
 
 func _particles_explode(delta):
 	for particle in particles:
+		# Apply velocity and gravity to the particles.
 		particle.velocity.x *= particle.velocity_increment.x
 		particle.velocity.y *= particle.velocity_increment.y
 		particle.position += (particle.velocity + particle.gravity) * delta
 
+		# Count the time the particle has been alive.
 		particle.time_alive += delta
 
+		# If the particle has reach its lifespan...
 		if particle.time_alive > particle.lifespan:
 			# Fade out the particles.
+			# ... fade it out until it's invisible.
 			if particle.color.a > 0:
 				particle.color.a -= particle.fade_factor * delta
 
@@ -124,10 +129,10 @@ func _create_particles():
 			color = null,
 			fade_factor = null,
 			gravity = null,
-			lifespan = null, # This is how long the particle should live for.
+			lifespan = null,
 			position = particles_initial_position,
 			size = null,
-			time_alive = 0, # This tracks how long the particle has been alive.
+			time_alive = 0,
 			velocity = null
 		}
 
