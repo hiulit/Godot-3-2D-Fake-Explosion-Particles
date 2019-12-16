@@ -99,14 +99,13 @@ func _particles_explode(delta):
 
 		# If the particle has reach its lifespan...
 		if particle.time_alive > particle.lifespan:
-			# Fade out the particles.
 			# ... fade it out until it's invisible.
 			if particle.color.a > 0:
 				particle.color.a -= particle.fade_factor * delta
 
 		# If the particle is invisible...
 		if particle.color.a <= 0:
-			# ... if there are particles in the particles array...
+			# ... and there are particles in the particles array...
 			if particles.size() > 0:
 				# ... remove the particle from the particles array.
 				particles.erase(particle)
