@@ -9,6 +9,9 @@ export (float) var max_particles_gravity = 600.0
 export (float) var min_particles_velocity = 200.0
 export (float) var max_particles_velocity = 600.0
 
+export (float) var min_particles_velocity_increment = 0.991
+export (float) var max_particles_velocity_increment = 1.009
+
 export (int) var max_particles_position_x = ProjectSettings.get_setting("display/window/size/width")
 export (int) var max_particles_position_y = ProjectSettings.get_setting("display/window/size/height")
 
@@ -205,7 +208,16 @@ func _get_random_velocity():
 
 
 func _get_random_velocity_increment():
-	var random_velocity_increment = Vector2(rand_range(0.991, 1.009), rand_range(0.991, 1.009))
+	var random_velocity_increment = Vector2(
+										rand_range(
+											min_particles_velocity_increment,
+											max_particles_velocity_increment
+										),
+										rand_range(
+											min_particles_velocity_increment,
+											max_particles_velocity_increment
+										)
+									)
 	return random_velocity_increment
 
 
