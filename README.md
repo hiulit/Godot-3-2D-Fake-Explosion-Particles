@@ -32,6 +32,7 @@ fake_explosion.min_particles_velocity = 20
 fake_explosion.max_particles_velocity = 60
 fake_explosion.min_particles_size = 1
 fake_explosion.max_particles_size = 2
+# etc ...
 
 # Set its position
 fake_explosion.position = Vector2(0, 0)
@@ -107,6 +108,18 @@ The minimum and maximum variables values are used to generate random values. If 
 | --- | --- | --- | --- |
 | `max_particles_velocity` | `float` | Set the maximum initial velocity of the particles. | `600.0` |
 
+### Min particles velocity increment
+
+| Name | Type | Description | Default |
+| --- | --- | --- | --- |
+| `min_particles_velocity_increment` | `float` | Set the mininum velocity increment of the particles. | `0.991` |
+
+### Max particles velocity increment
+
+| Name | Type | Description | Default |
+| --- | --- | --- | --- |
+| `max_particles_velocity_increment` | `float` | Set the maximum velocity increment of the particles. | `1.009` |
+
 ### Max particles position X
 
 | Name | Type | Description | Default |
@@ -119,7 +132,35 @@ The minimum and maximum variables values are used to generate random values. If 
 | --- | --- | --- | --- |
 | `max_particles_position_y` | `int` | Set the maximum initial Y position of the particles. | `ProjectSettings.get_setting("display/window/size/height"` |
 
-### Max particles size
+### Min particles lifespan
+
+| Name | Type | Description | Default |
+| --- | --- | --- | --- |
+| `min_particles_lifespan` | `float` | Set the minimum lifespan of the particles (in seconds). | `0.05` |
+
+### Max particles lifespan
+
+| Name | Type | Description | Default |
+| --- | --- | --- | --- |
+| `max_particles_lifespan` | `float` | Set the minimum lifespan of the particles (in seconds). | `0.1` |
+
+### Min particles fade factor
+
+| Name | Type | Description | Default |
+| --- | --- | --- | --- |
+| `min_particles_fade_factor` | `float` | Set the minimum fade factor of the particles. The bigger the number, the faster the particles will fade. | `2.0` |
+
+The factor is `1 / min_particles_fade_factor`. Using the default values that would be `0.5` seconds.
+
+### Max particles fade factor
+
+| Name | Type | Description | Default |
+| --- | --- | --- | --- |
+| `max_particles_fade_factor` | `float` | Set the minimum fade factor of the particles. The bigger the number, the faster the particles will fade. | `10.0` |
+
+The factor is `1 / max_particles_fade_factor`. Using the default values that would be `0.1` seconds.
+
+### Min particles size
 
 | Name | Type | Description | Default |
 | --- | --- | --- | --- |
@@ -180,6 +221,7 @@ See [CHANGELOG](CHANGELOG.md).
 Thanks to:
 
 * [CowThing](https://github.com/CowThing) - For the `_rand_array` function.
+* [_justpassingby_](https://www.reddit.com/user/_justpassingby_) - For helping in fixing and cleaning up some code.
 
 ## License
 
