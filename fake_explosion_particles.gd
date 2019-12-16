@@ -54,6 +54,7 @@ func _ready():
 
 	# Create a timer.
 	particles_timer = Timer.new()
+	particles_timer.name = "particles_timer"
 	particles_timer.one_shot = false
 	particles_timer.wait_time = timer_wait_time
 	particles_timer.set_timer_process_mode(1)
