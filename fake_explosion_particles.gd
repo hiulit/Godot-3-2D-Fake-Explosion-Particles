@@ -44,6 +44,7 @@ var particles_colors_with_weights = [
 ]
 
 var particles_timer
+var particles_to_remove = []
 
 func _ready():
 	# Randomize the seed.
@@ -71,7 +72,6 @@ func _process(delta):
 	# If there are particles in the particles array and
 	# 'particles_explode' is 'true', make them explode.
 	if particles.size() > 0 and particles_explode == true:
-
 		# Explode the particles.
 		_particles_explode(delta)
 
@@ -80,8 +80,19 @@ func _process(delta):
 
 	# If there are no particles in the particles array
 	# and the timer is not set, free the node.
-	if particles.size() == 0 and not start_timer:
-		queue_free()
+#	if particles.size() == 0 and not start_timer:
+#		queue_free()
+
+	# If the is the same amount of particles than particles to remove,
+	# clear the particles array so the _particles_explode() and update()
+	# functions are not processed.
+	if particles.size() == particles_to_remove.size():
+		particles.clear()
+		particles_to_remove.clear()
+
+		# If the timer is not set, free the node.
+		if not start_timer:
+			queue_free()
 
 
 func _draw():
@@ -92,29 +103,42 @@ func _draw():
 
 func _particles_explode(delta):
 	for particle in particles:
-		# Apply velocity and gravity to the particles.
-		particle.velocity.x *= particle.velocity_increment.x
-		particle.velocity.y *= particle.velocity_increment.y
-		particle.position += (particle.velocity + particle.gravity) * delta
+		# Only process particles that are still alive.
+		if not particle.is_dead:
+			# Apply velocity and gravity to the particles.
+			particle.velocity.x *= particle.velocity_increment.x
+			particle.velocity.y *= particle.velocity_increment.y
+			particle.position += (particle.velocity + particle.gravity) * delta
+	
+			# Count the time the particle has been alive.
+			particle.time_alive += delta
+	
+			# If the particle has reach its lifespan...
+			if particle.time_alive > particle.lifespan:
+				# ... fade it out until it's invisible.
+				if particle.color.a > 0:
+					particle.color.a -= particle.fade_factor * delta
+	
+			# If the particle is invisible...
+			if particle.color.a <= 0:
+				# ... prevent the particle to have a negative alpha.
+				particle.color.a = 0
+				# ... add it to the array of particles to remove...
+				particles_to_remove.push_back(particle)
+				# ... and kill the particle so it's not processed anymore.
+				particle.is_dead = true
 
-		# Count the time the particle has been alive.
-		particle.time_alive += delta
-
-		# If the particle has reach its lifespan...
-		if particle.time_alive > particle.lifespan:
-			# ... fade it out until it's invisible.
-			if particle.color.a > 0:
-				particle.color.a -= particle.fade_factor * delta
-
-		# If the particle is invisible...
-		if particle.color.a <= 0:
-			# ... and there are particles in the particles array...
-			if particles.size() > 0:
-				# ... remove the particle from the particles array.
-				particles.erase(particle)
+	#			# ... and there are particles in the particles array...
+	#			if particles.size() > 0:
+	#				# ... remove the particle from the particles array.
+	#				particles.erase(particle)
 
 
 func _create_particles():
+	# Empty the particles arrays.
+	particles.clear()
+	particles_to_remove.clear()
+
 	# Set the node's position to (0,0) to get proper random position values.
 	if get_random_position: position = Vector2.ZERO
 
@@ -122,15 +146,13 @@ func _create_particles():
 	particles_initial_position = _get_random_position() if get_random_position else Vector2.ZERO
 	particles_number = _get_random_int(min_particles_number, max_particles_number)
 
-	# Empty the particles array.
-	particles.clear()
-
 	for i in particles_number:
 		# Create the particle object.
 		var particle = {
 			color = null,
 			fade_factor = null,
 			gravity = null,
+			is_dead = false,
 			lifespan = null,
 			position = particles_initial_position,
 			size = null,
